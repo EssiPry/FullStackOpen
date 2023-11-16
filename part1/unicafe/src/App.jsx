@@ -6,8 +6,14 @@ const Button = (props) => (
   </button>
 )
 
-const Display = (props) => (
-  <div>{props.text} {props.number}
+const Statistics = (props) => (
+  <div>
+    <p>{props.good} {props.goodNumber}</p>
+    <p>{props.neutral} {props.neutralNumber}</p>
+    <p>{props.bad} {props.badNumber}</p>
+    <p>{props.all} {props.total}</p>
+    <p>{props.ave} {props.average}</p>
+    <p>{props.pos} {props.positive} % </p>
   </div>
 )
 
@@ -38,9 +44,12 @@ const App = () => {
 
       <h2>statistics</h2>
 
-      <Display text="good" number={good}/>
-      <Display text="neutral" number={neutral}/>
-      <Display text="bad" number={bad}/>
+      <Statistics good="good" goodNumber={good}
+      neutral="neutral" neutralNumber={neutral}
+      bad="bad" badNumber={bad}
+      all="all" total={good + neutral + bad}
+      ave="average" average={(good *1 + neutral *0 + bad * -1) /(good + neutral + bad)}
+      pos="positive" positive={good/(good + neutral + bad)*100}/>
     </div>
   )
 }
