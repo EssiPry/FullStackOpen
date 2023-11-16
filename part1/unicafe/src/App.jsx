@@ -6,16 +6,26 @@ const Button = (props) => (
   </button>
 )
 
-const Statistics = (props) => (
-  <div>
-    <p>{props.good} {props.goodNumber}</p>
-    <p>{props.neutral} {props.neutralNumber}</p>
-    <p>{props.bad} {props.badNumber}</p>
-    <p>{props.all} {props.total}</p>
-    <p>{props.ave} {props.average}</p>
-    <p>{props.pos} {props.positive} % </p>
-  </div>
-)
+const Statistics = (props) => {
+  if (props.goodNumber === 0 && props.neutralNumber === 0 && props.badNumber === 0) {
+    return (
+      <div>
+        <p>No feedback given</p>
+      </div>
+    )
+  }
+  return (
+    <div>
+
+      <p>{props.good} {props.goodNumber}</p>
+      <p>{props.neutral} {props.neutralNumber}</p>
+      <p>{props.bad} {props.badNumber}</p>
+      <p>{props.all} {props.total}</p>
+      <p>{props.ave} {props.average}</p>
+      <p>{props.pos} {props.positive} % </p>
+    </div>
+  )
+}
 
 const App = () => {
   // tallenna napit omaan tilaansa
