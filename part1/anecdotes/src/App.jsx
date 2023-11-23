@@ -9,6 +9,24 @@ const Button = (props) => (
   </div>
 )
 
+const Display = (props) => {
+  if (props.voteCount === 1) {
+    return (
+      <div>
+        <p>{props.anecdote}</p>
+        <p>has {props.voteCount} vote. </p>
+      </div>
+    )
+  }
+  return (
+    <div>
+      <p>{props.anecdote}</p>
+      <p>has {props.voteCount} votes.</p>
+    </div>
+  )
+
+}
+
 
 const App = () => {
   const anecdotes = [
@@ -24,16 +42,27 @@ const App = () => {
 
   const [selected, setSelected] = useState(0)
 
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
+
   const selectNew = () => {
     const newValue = Math.floor(Math.random() * 7)
     setSelected(newValue)
   }
 
+  const addVote = () => {
+    console.log(votes, 'selected', selected)
+    const addedVotes = [...votes]
+    addedVotes[selected] += 1
+    console.log('after addition', addedVotes)
+    setVotes(addedVotes)
+  }
 
   return (
     <div>
-      {anecdotes[selected]}
+      <Display anecdote={anecdotes[selected]} voteCount={votes[selected]}/>
+      <Button handleClick={addVote} text="Vote"/>
       <Button handleClick={selectNew} text="Next anecdote" />
+
     </div>
   )
 }
