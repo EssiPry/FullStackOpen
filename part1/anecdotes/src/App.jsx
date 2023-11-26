@@ -13,6 +13,7 @@ const Display = (props) => {
   if (props.voteCount === 1) {
     return (
       <div>
+        <h2>{props.title}</h2>
         <p>{props.anecdote}</p>
         <p>has {props.voteCount} vote. </p>
       </div>
@@ -20,6 +21,7 @@ const Display = (props) => {
   }
   return (
     <div>
+      <h2>{props.title}</h2>
       <p>{props.anecdote}</p>
       <p>has {props.voteCount} votes.</p>
     </div>
@@ -44,24 +46,35 @@ const App = () => {
 
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
 
+  const [mostVoted, setMostVoted] = useState(0)
+
   const selectNew = () => {
-    const newValue = Math.floor(Math.random() * 7)
+    const newValue = Math.floor(Math.random() * anecdotes.length)
     setSelected(newValue)
   }
 
   const addVote = () => {
-    console.log(votes, 'selected', selected)
     const addedVotes = [...votes]
     addedVotes[selected] += 1
-    console.log('after addition', addedVotes)
     setVotes(addedVotes)
+    console.log('addedVotes', addedVotes[selected])
+    console.log('Votes', votes[selected])
+    checkMostVoted(addedVotes)
+  }
+
+  const checkMostVoted = (addedVotes) => {
+    const max = Math.max(...addedVotes)
+    console.log('max', max)
+    setMostVoted(addedVotes.indexOf(max))
   }
 
   return (
     <div>
-      <Display anecdote={anecdotes[selected]} voteCount={votes[selected]}/>
+      <Display title={"Anecdote of the day"} anecdote={anecdotes[selected]} voteCount={votes[selected]}/>
       <Button handleClick={addVote} text="Vote"/>
       <Button handleClick={selectNew} text="Next anecdote" />
+      <Display title={"Anecdote with most votes"} anecdote={anecdotes[mostVoted]} voteCount={votes[mostVoted]}/>
+
 
     </div>
   )
