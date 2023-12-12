@@ -21,14 +21,9 @@
       "id": 4
     },
     {
-      "name": "Meme",
-      "number": "12345",
+      "name": "Mary-Bob",
+      "number": "123456",
       "id": 5
-    },
-    {
-      "name": "tester",
-      "number": "098765",
-      "id": 6
     }
   ]
 }
