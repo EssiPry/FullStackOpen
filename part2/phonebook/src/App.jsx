@@ -22,17 +22,28 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault()
-    //console.log('add name', newName)
-    //console.log('add number', newNumber)
+
+    const personObject =  {
+      name: newName,
+      number: newNumber
+    }
+
     if (persons.some(person => person.name === newName)){
-      alert(`${newName} is already added to the phonebook`)
+      if (window.confirm(`${newName} is already in the phonebook. Do you want to update the number?`)){
+        const id = persons.find(p => p.name === newName).id
+        personService
+        .updatePerson(id, personObject)
+        .then(updatedPersons => {
+          setPersons(persons.map(person => person.id !== id ? person : updatedPersons))
+          setNewName('')
+          setNewNumber('')
+        })
+      } else {
+        setNewName('')
+        setNewNumber('')
+      }
     }
     else{
-      const personObject =  {
-          name: newName,
-          number: newNumber
-        }
-
         personService
         .create(personObject)
         .then(returnedPerson => {
@@ -47,22 +58,18 @@ const App = () => {
     : persons
 
   const handleAddName = (event) => {
-    //console.log('handle add name', event.target.value)
     setNewName(event.target.value)
   }
 
   const handleAddNumber = (event) => {
-    //console.log('handle new number', event.target.value)
     setNewNumber(event.target.value)
   }
 
   const handleFilter = (event) => {
-    //console.log('handle filter', event.target.value)
     setFilterUsed(event.target.value)
   }
 
   const handleDeletePerson = (name, id) => {
-    //console.log(`handle deleting ${name}`)
     if (window.confirm(`Are you sure you want to delete ${name}?`)){
       personService.deletePerson(id)
       setPersons(persons.filter(person => person.id !== id))
