@@ -12,7 +12,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filterUsed, setFilterUsed] = useState('')
-  const [notificationMessage, setNotificationMessage] = useState(null)
+  const [notificationMessage, setNotificationMessage] = useState({text:'', type:''})
 
   useEffect(() => {
     personService
@@ -31,7 +31,7 @@ const App = () => {
     }
 
     if (persons.some(person => person.name === newName)){
-      if (window.confirm(`${newName} is already in the phonebook. Do you want to update the number?`)){
+      if (window.confirm(`${newName} is already in the phonebook. Do you want to update their number?`)){
         const id = persons.find(p => p.name === newName).id
         personService
         .updatePerson(id, personObject)
@@ -39,14 +39,18 @@ const App = () => {
           setPersons(persons.map(person => person.id !== id ? person : updatedPersons))
           setNewName('')
           setNewNumber('')
-          setNotificationMessage(
-            `${newName}'s number was updated`)
+          setNotificationMessage({text:`${newName}'s number was updated.`, type:'success'})
           setTimeout(() => {
-            setNotificationMessage(null)}, 3000)
+            setNotificationMessage({text:'', type:''})}, 3000)
+
+        .catch(error => {
+          setNotificationMessage({text:`${newName}'s number was not updated.`, type: 'error'})
+          setTimeout(() => {
+            setNotificationMessage({text:'', type:''})}, 3000)
+          setNewName('')
+          setNewNumber('')
+          })
         })
-      } else {
-        setNewName('')
-        setNewNumber('')
       }
     }
     else{
@@ -56,11 +60,16 @@ const App = () => {
           setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
-          setNotificationMessage(
-            `${newName} was added to the phonebook`
-          )
+          setNotificationMessage({text:`${newName} was added to the phonebook.`, type: 'success'})
           setTimeout(() => {
-            setNotificationMessage(null)}, 3000)
+            setNotificationMessage({text:'', type:''})}, 3000)
+        })
+        .catch(error => {
+          setNotificationMessage({text:`${newName} was not added to the phonebook.`, type: 'error'})
+          setTimeout(() => {
+            setNotificationMessage({text:'', type:''})}, 3000)
+          setNewName('')
+          setNewNumber('')
         })
   }}
 
@@ -82,16 +91,20 @@ const App = () => {
 
   const handleDeletePerson = (name, id) => {
     if (window.confirm(`Are you sure you want to delete ${name}?`)){
-      personService.deletePerson(id)
-      setPersons(persons.filter(person => person.id !== id))
-      setNotificationMessage(
-        `${name} was deleted from the phonebook`
-      )
-      setTimeout(() => {
-        setNotificationMessage(null)}, 3000)
-
-      } else {
-      console.log(`${name} was not deleted`)
+      personService
+      .deletePerson(id)
+      .then(response => {
+        setPersons(persons.filter(person => person.id !== id))
+        setNotificationMessage({text:`${name} was deleted from the phonebook.`, type:'success'})
+        setTimeout(() => {
+          setNotificationMessage({text:'', type:''})}, 3000)
+      })
+      .catch(error => {
+        setNotificationMessage({text:`${name} has already been deleted from the phonebook.`, type: 'error'})
+        setTimeout(() => {
+          setNotificationMessage({text:'', type:''})}, 3000)
+        console.log(error)
+      })
     }
   }
 
@@ -112,7 +125,6 @@ const App = () => {
 
     </div>
   )
-
 }
 
 export default App
