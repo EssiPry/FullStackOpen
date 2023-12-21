@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Filter from './components/Filter'
+import Notification from './components/Notification'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import personService from './services/persons'
@@ -11,6 +12,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filterUsed, setFilterUsed] = useState('')
+  const [notificationMessage, setNotificationMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -37,6 +39,10 @@ const App = () => {
           setPersons(persons.map(person => person.id !== id ? person : updatedPersons))
           setNewName('')
           setNewNumber('')
+          setNotificationMessage(
+            `${newName}'s number was updated`)
+          setTimeout(() => {
+            setNotificationMessage(null)}, 3000)
         })
       } else {
         setNewName('')
@@ -50,6 +56,11 @@ const App = () => {
           setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
+          setNotificationMessage(
+            `${newName} was added to the phonebook`
+          )
+          setTimeout(() => {
+            setNotificationMessage(null)}, 3000)
         })
   }}
 
@@ -73,7 +84,12 @@ const App = () => {
     if (window.confirm(`Are you sure you want to delete ${name}?`)){
       personService.deletePerson(id)
       setPersons(persons.filter(person => person.id !== id))
-      console.log(`${name} was deleted successfully`)
+      setNotificationMessage(
+        `${name} was deleted from the phonebook`
+      )
+      setTimeout(() => {
+        setNotificationMessage(null)}, 3000)
+
       } else {
       console.log(`${name} was not deleted`)
     }
@@ -83,6 +99,9 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification message={notificationMessage}/>
+
       <Filter handleFilter={handleFilter}/>
 
       <h2>Add a new</h2>
