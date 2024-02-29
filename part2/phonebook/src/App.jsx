@@ -43,14 +43,13 @@ const App = () => {
           setNotificationMessage({text:`${newName}'s number was updated.`, type:'success'})
           setTimeout(() => {
             setNotificationMessage({text:'', type:''})}, 3000)
-
+        })
         .catch(error => {
           setNotificationMessage({text:`${newName}'s number was not updated.`, type: 'error'})
           setTimeout(() => {
             setNotificationMessage({text:'', type:''})}, 3000)
           setNewName('')
           setNewNumber('')
-          })
         })
       }
     }
