@@ -65,7 +65,8 @@ const App = () => {
             setNotificationMessage({text:'', type:''})}, 3000)
         })
         .catch(error => {
-          setNotificationMessage({text:`${newName} was not added to the phonebook.`, type: 'error'})
+          //console.log(error.response.data)
+          setNotificationMessage({text:`${error.response.data.error}`, type: 'error'})
           setTimeout(() => {
             setNotificationMessage({text:'', type:''})}, 3000)
           setNewName('')
