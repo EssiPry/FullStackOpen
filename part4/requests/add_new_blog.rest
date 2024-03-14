@@ -3,7 +3,7 @@ content-type: application/json
 
 {
     "title": "Not all moomins in the valley",
-    "author": "Lars",
+    "author": "Nuuskamuikkunen",
     "url": "http://beepbop.boo",
     "likes": 5
 }
