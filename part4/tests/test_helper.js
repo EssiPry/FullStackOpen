@@ -32,6 +32,17 @@ const newBlogUndefinedLikes = {
   url: 'www',
 }
 
+const nonExistingId = async () => {
+  const blog = new Blog({ title: 'Non-existant blog', url: 'www'})
+  await blog.save()
+  await blog.deleteOne()
+}
+
+const blogsInDb = async () => {
+  const blogs = await Blog.find({})
+  return blogs.map(blog => blog.toJSON())
+}
+
 module.exports = {
-  initialBlogs, newBlog, newBlogUndefinedLikes
+  initialBlogs, newBlog, newBlogUndefinedLikes, nonExistingId, blogsInDb
 }
