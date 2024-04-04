@@ -35,6 +35,30 @@ describe('bloglist has entries', () => {
   })
 })
 
+
+describe('viewing a specific blog', () => {
+  test('succeeds with a valid id', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+
+    const blogToView = blogsAtStart[0]
+
+    const resultBlog = await api
+      .get(`/api/blogs/${blogToView.id}`)
+      .expect(200)
+      .expect('Content-Type', /application\/json/ )
+
+    assert.deepStrictEqual(resultBlog.body.title, blogToView.title)
+  })
+
+  test('fails with statuscode 400 if id is invalid', async () => {
+    const invalidId = 747
+
+    await api
+      .get(`/api/blogs/${invalidId}`)
+      .expect(400)
+  })
+})
+
 describe('add a new blog to the list', () => {
   test('a valid blog can be added', async () => {
 
