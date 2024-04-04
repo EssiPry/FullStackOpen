@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs HTTP/1.1.
 content-type: application/json
 
 {
-    "title": "They don't have all moomins in the valley",
-    "author": "Nuuskamuikkunen",
-    "url": "http://beepbop.boo",
-    "likes":""
+    "title": "when you're angry, then you're angry ",
+    "author": "Little My",
+    "url" : "moomins.com",
+    "likes":"100"
 }

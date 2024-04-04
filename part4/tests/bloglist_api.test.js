@@ -35,7 +35,7 @@ describe('bloglist has entries', () => {
   })
 })
 
-describe('Add a new blog to the list', () => {
+describe('add a new blog to the list', () => {
   test('a valid blog can be added', async () => {
 
     await api
@@ -48,6 +48,34 @@ describe('Add a new blog to the list', () => {
     const titles = res.body.map(r => r.title)
     assert.strictEqual(res.body.length, helper.initialBlogs.length +1)
     assert(titles.includes(helper.newBlog.title))
+  })
+
+  test('likes default to 0 if likes property is missing', async () => {
+    await api
+      .post('/api/blogs')
+      .send(helper.newBlogUndefinedLikes)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+
+    const res = await api.get('/api/blogs')
+    const savedBlog = res.body.find(b => b.author === 'Doggo')
+    assert.strictEqual(savedBlog.likes, 0)
+
+  })
+
+  test('fails with status code 400, if title or url properties are missing', async () => {
+    const newBlogOnlyAuthor = {
+      author: 'No title, no cats',
+      likes: -100
+    }
+
+    await api
+      .post('/api/blogs')
+      .send(newBlogOnlyAuthor)
+      .expect(400)
+
+    const res = await api.get('/api/blogs')
+    assert.strictEqual(res.body.length, helper.initialBlogs.length)
   })
 })
 
