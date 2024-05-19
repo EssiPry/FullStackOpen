@@ -4,7 +4,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikpvb
 
 {
     "title": "it isn't always easy to be a Fillyjonk",
-    "author": "F. Jonk",
+    "author": "F. Jonks",
     "url" : "jonks.com",
-    "likes":"1"
+    "likes":"400"
 }
