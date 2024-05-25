@@ -1,9 +1,9 @@
 POST http://localhost:3003/api/blogs HTTP/1.1.
-content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvbmtrYSIsImlkIjoiNjY0NTE2YTg2ZWUyM2FmZTQ2YjMwZjJlIiwiaWF0IjoxNzE2MTQwMDg0fQ.jBI8r_fcIGGSHQRS3cxTDFmS3DoRfotcOnHJttWnvjA
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvbmtrYSIsImlkIjoiNjY0NTE2YTg2ZWUyM2FmZTQ2YjMwZjJlIiwiaWF0IjoxNzE2NjczMTM4LCJleHAiOjE3MTY2NzY3Mzh9.SlQsS1jwE6te5W0ijr_aL_bjgmb1LlKy1r5yXIgu6uI
 
 {
-    "title": "it isn't always easy to be a Fillyjonk",
+    "title": "Testing like of a Fillyjonk",
     "author": "F. Jonks",
     "url" : "jonks.com",
     "likes":"400"

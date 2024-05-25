@@ -1,1 +1,4 @@
-DELETE http://localhost:3003/api/blogs/660ee04fe08060eac00c32c4
+//add a valid blog id & authorization token
+
+DELETE http://localhost:3003/api/blogs/66525c2963604eef97afb42b
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvbmtrYSIsImlkIjoiNjY0NTE2YTg2ZWUyM2FmZTQ2YjMwZjJlIiwiaWF0IjoxNzE2NjczMTM4LCJleHAiOjE3MTY2NzY3Mzh9.SlQsS1jwE6te5W0ijr_aL_bjgmb1LlKy1r5yXIgu6uI
